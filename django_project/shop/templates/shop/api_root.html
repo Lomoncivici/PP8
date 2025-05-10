@@ -1,0 +1,23 @@
+{% extends "shop/base.html" %}
+
+{% block title %}API{% endblock %}
+
+{% block content %}
+<h1>API Root</h1>
+<p>Выберите доступный API:</p>
+<ul>
+    {% if request.user.is_superuser %}
+    <li><a href="/api/products/">Товары API</a></li>
+    <li><a href="/api/categories/">Категории API</a></li>
+    <li><a href="/api/tags/">Теги API</a></li>
+    {% elif is_admin %}
+        <li><a href="/api/products/">Товары API</a></li>
+        <li><a href="/api/categories/">Категории API</a></li>
+        <li><a href="/api/tags/">Теги API</a></li>
+    {% elif is_seller %}
+        <li><a href="/api/products/">Товары API</a></li>
+    {% else %}
+        <p>У вас нет доступа к API.</p>
+    {% endif %}
+</ul>
+{% endblock %}

@@ -1,0 +1,7 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}Главная{% endblock %}
+{% block content %}
+<h1>Добро пожаловать в My Shop</h1>
+<p>Перейдите в <a href="{% url 'shop:product-list' %}">каталог товаров</a>.</p>
+{% endblock %}

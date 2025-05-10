@@ -1,0 +1,33 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+  <h1>{{ product.name }}</h1>
+
+  <div class="product-detail">
+    <img
+      src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'shop/img/placeholder_large.png' %}{% endif %}"
+      alt="{{ product.name }}"
+      style="max-width:100%;height:auto;">
+
+    <p>{{ product.description }}</p>
+    <p><strong>Цена:</strong> {{ product.price }} ₽</p>
+
+    <p><strong>Категория:</strong>
+      <a href="{% url 'shop:product-by-category' product.category.pk %}" class="btn">
+        {{ product.category.name }}
+      </a>
+    </p>
+
+    <p><strong>Теги:</strong>
+      {% for tag in product.tags.all %}
+        <a href="{% url 'shop:product-by-tag' tag.pk %}" class="btn">{{ tag.name }}</a>
+      {% empty %}
+        &mdash; без тегов
+      {% endfor %}
+    </p>
+    <a href="{% url 'shop:cart-add' product.pk %}" class="btn">В корзину</a>
+  </div>
+{% endblock %}

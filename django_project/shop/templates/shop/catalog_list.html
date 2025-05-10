@@ -1,0 +1,32 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}Каталог{% endblock %}
+{% block content %}
+  <h1>Каталог товаров</h1>
+
+  <div class="actions">
+    {% if request.user.is_superuser %}
+    <a href="{% url 'shop:product-add' %}">Добавить товар</a>
+    {% endif %}
+  </div>
+
+  <ul class="product-list">
+    {% for p in products %}
+      <li class="product-card">
+        <img src="{% if p.image %}{{ p.image.url }}{% else %}{% static 'shop/img/placeholder.png' %}{% endif %}"
+             alt="{{ p.name }}">
+        <div class="card-body">
+          <h2>{{ p.name }}</h2>
+          <p>{{ p.price }} ₽</p>
+
+          <a href="{% url 'shop:product-detail' p.pk %}" class="btn">Подробнее</a>
+          {% if request.user.is_superuser and p.id %}
+            <a href="{% url 'shop:product-delete' p.id %}">Удалить</a>
+          {% endif %}
+        </div>
+      </li>
+    {% empty %}
+      <li>Нет товаров.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

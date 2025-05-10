@@ -1,0 +1,13 @@
+{% extends 'shop/base.html' %}
+
+{% block content %}
+<h1>Спасибо за заказ!</h1>
+
+<p>Номер заказа: <strong>{{ order.order_number }}</strong></p>
+<p>ФИО: {{ order.full_name }}</p>
+<p>Телефон: {{ order.phone }}</p>
+<p>Адрес доставки: {{ order.address }}</p>
+<p>Дата создания заказа: {{ order.created_at }}</p>
+
+<a href="{% url 'shop:product-list' %}">Вернуться в каталог</a>
+{% endblock %}

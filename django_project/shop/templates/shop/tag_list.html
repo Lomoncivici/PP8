@@ -1,0 +1,24 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}Теги{% endblock %}
+{% block content %}
+  <h1>Теги</h1>
+
+  <ul class="product-list">
+    {% for t in tags %}
+      <li class="product-card">
+        <div class="card-body">
+          <h2>{{ t.name }}</h2>
+          <p>{{ t.description }}</p>
+
+          <a href="{% url 'shop:product-by-tag' t.pk %}" class="btn">Товары</a>
+          {% if request.user.is_superuser and t.id %}
+            <a href="{% url 'shop:tag-delete' t.id %}">Удалить</a>
+          {% endif %}
+        </div>
+      </li>
+    {% empty %}
+      <li>Нет тегов.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
